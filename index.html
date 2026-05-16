@@ -6,58 +6,160 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f7f7f7; padding: 16px; max-width: 390px; margin: 0 auto; }
   .section { background: #fff; border-radius: 12px; padding: 20px 16px; }
-  .section-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .section-title { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+  .section-subtitle { font-size: 13px; color: #888; margin-bottom: 16px; }
+  .filters { display: flex; gap: 8px; margin-bottom: 16px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter-btn { flex-shrink: 0; padding: 7px 14px; border-radius: 20px; border: 1px solid #ddd; background: #fff; font-size: 13px; color: #555; cursor: pointer; }
+  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
   .group { margin-bottom: 20px; }
   .group:last-child { margin-bottom: 0; }
+  .group.hidden { display: none; }
   .group-label { font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #f5f5f5; border-radius: 20px; font-size: 13px; color: #333; }
   .chip .icon { font-size: 15px; }
-  .chip.highlight { background: #e8f5e9; color: #2e7d32; }
-  .chip.highlight .icon { color: #2e7d32; }
   .divider { height: 1px; background: #eee; margin: 20px 0; }
-  .note { font-size: 12px; color: #999; margin-top: 16px; }
+  .empty { font-size: 13px; color: #999; padding: 12px 0; display: none; }
 </style>
 </head>
 <body>
 <div class="section">
   <div class="section-title">Amenities</div>
+  <div class="section-subtitle">Tapestry Nona · 47 amenities</div>
 
-  <div class="group">
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="kitchen">Kitchen</button>
+    <button class="filter-btn" data-filter="laundry">Laundry</button>
+    <button class="filter-btn" data-filter="comfort">Comfort</button>
+    <button class="filter-btn" data-filter="fitness">Fitness</button>
+    <button class="filter-btn" data-filter="outdoor">Outdoor</button>
+    <button class="filter-btn" data-filter="storage">Storage</button>
+    <button class="filter-btn" data-filter="tech">Tech</button>
+  </div>
+
+  <div class="group" data-group="in-unit">
     <div class="group-label">In-unit</div>
     <div class="chips">
-      <div class="chip highlight"><span class="icon">🧺</span> Washer</div>
-      <div class="chip highlight"><span class="icon">👕</span> Dryer</div>
-      <div class="chip"><span class="icon">🍳</span> Microwave</div>
-      <div class="chip"><span class="icon">🗄️</span> Pantry</div>
-      <div class="chip"><span class="icon">💨</span> Ceiling fan</div>
-      <div class="chip"><span class="icon">🪟</span> Window coverings</div>
+      <div class="chip" data-cat="laundry"><span class="icon">🧺</span> Washer</div>
+      <div class="chip" data-cat="laundry"><span class="icon">👕</span> Dryer</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🍳</span> Microwave</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🍽️</span> Dishwasher</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🗄️</span> Pantry</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">♨️</span> Stove</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🧊</span> Refrigerator</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🗑️</span> Garbage disposal</div>
+      <div class="chip" data-cat="kitchen"><span class="icon">🪨</span> Granite countertops</div>
+      <div class="chip" data-cat="comfort"><span class="icon">❄️</span> Air conditioning</div>
+      <div class="chip" data-cat="comfort"><span class="icon">💨</span> Ceiling fan</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🪟</span> Window coverings</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🪵</span> Hardwood floors</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🚿</span> Walk-in shower</div>
+      <div class="chip" data-cat="comfort"><span class="icon">👁️</span> View</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🛁</span> Garden tub</div>
+      <div class="chip" data-cat="storage"><span class="icon">👔</span> Walk-in closet</div>
+      <div class="chip" data-cat="tech"><span class="icon">🔌</span> USB outlets</div>
+      <div class="chip" data-cat="tech"><span class="icon">🏠</span> Smart home features</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🪞</span> Crown molding</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🏠</span> Patio/balcony</div>
     </div>
   </div>
 
-  <div class="divider"></div>
+  <div class="divider group-divider"></div>
 
-  <div class="group">
+  <div class="group" data-group="building">
     <div class="group-label">Building</div>
     <div class="chips">
-      <div class="chip highlight"><span class="icon">🏋️</span> Fitness center</div>
-      <div class="chip"><span class="icon">💼</span> Business center</div>
-      <div class="chip"><span class="icon">🛗</span> Elevator</div>
-      <div class="chip"><span class="icon">🚲</span> Bicycle storage</div>
-      <div class="chip"><span class="icon">🌳</span> Courtyard</div>
+      <div class="chip" data-cat="fitness"><span class="icon">🏋️</span> Fitness center</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🏊</span> Swimming pool</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🛁</span> Hot tub</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🌳</span> Courtyard</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🔥</span> Fire pit</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🍖</span> Outdoor grills</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🐕</span> Dog park</div>
+      <div class="chip" data-cat="outdoor"><span class="icon">🐾</span> Pet spa</div>
+      <div class="chip" data-cat="fitness"><span class="icon">🧘</span> Yoga studio</div>
+      <div class="chip" data-cat="fitness"><span class="icon">🏊</span> Lap pool</div>
+      <div class="chip" data-cat="tech"><span class="icon">💼</span> Business center</div>
+      <div class="chip" data-cat="tech"><span class="icon">🖥️</span> Coworking space</div>
+      <div class="chip" data-cat="tech"><span class="icon">📦</span> Package lockers</div>
+      <div class="chip" data-cat="tech"><span class="icon">📶</span> Wi-Fi in common areas</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🛗</span> Elevator</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🧺</span> Laundry facility</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🛎️</span> Concierge</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🎮</span> Game room</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🎬</span> Media room</div>
+      <div class="chip" data-cat="comfort"><span class="icon">☕</span> Coffee bar</div>
+      <div class="chip" data-cat="comfort"><span class="icon">👶</span> Playground</div>
+      <div class="chip" data-cat="storage"><span class="icon">🚲</span> Bicycle storage</div>
+      <div class="chip" data-cat="storage"><span class="icon">📦</span> Storage units</div>
+      <div class="chip" data-cat="comfort"><span class="icon">♿</span> Accessible units</div>
+      <div class="chip" data-cat="comfort"><span class="icon">🚪</span> Controlled access</div>
+      <div class="chip" data-cat="comfort"><span class="icon">📹</span> Security cameras</div>
     </div>
   </div>
 
-  <div class="divider"></div>
+  <div class="divider group-divider"></div>
 
-  <div class="group">
+  <div class="group" data-group="parking">
     <div class="group-label">Parking</div>
     <div class="chips">
-      <div class="chip"><span class="icon">🅿️</span> Available</div>
+      <div class="chip" data-cat="storage"><span class="icon">🅿️</span> Covered parking</div>
+      <div class="chip" data-cat="storage"><span class="icon">🏗️</span> Parking garage</div>
+      <div class="chip" data-cat="tech"><span class="icon">⚡</span> EV charging</div>
     </div>
   </div>
 
-  <div class="note">Highlighted amenities are commonly searched by renters in this area.</div>
+  <div class="empty" id="empty-msg">No amenities match this filter.</div>
 </div>
+
+<script>
+const filters = document.querySelectorAll('.filter-btn');
+const chips = document.querySelectorAll('.chip');
+const groups = document.querySelectorAll('.group');
+const dividers = document.querySelectorAll('.group-divider');
+const emptyMsg = document.getElementById('empty-msg');
+
+filters.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filters.forEach(f => f.classList.remove('active'));
+    btn.classList.add('active');
+    const cat = btn.dataset.filter;
+
+    if (cat === 'all') {
+      chips.forEach(c => c.style.display = '');
+      groups.forEach(g => g.classList.remove('hidden'));
+      dividers.forEach(d => d.style.display = '');
+      emptyMsg.style.display = 'none';
+      return;
+    }
+
+    let anyVisible = false;
+    groups.forEach((group, i) => {
+      const groupChips = group.querySelectorAll('.chip');
+      let groupHasVisible = false;
+      groupChips.forEach(c => {
+        if (c.dataset.cat === cat) {
+          c.style.display = '';
+          groupHasVisible = true;
+          anyVisible = true;
+        } else {
+          c.style.display = 'none';
+        }
+      });
+      group.classList.toggle('hidden', !groupHasVisible);
+    });
+
+    dividers.forEach(d => {
+      const prev = d.previousElementSibling;
+      const next = d.nextElementSibling;
+      d.style.display = (prev && !prev.classList.contains('hidden') && next && !next.classList.contains('hidden')) ? '' : 'none';
+    });
+
+    emptyMsg.style.display = anyVisible ? 'none' : 'block';
+  });
+});
+</script>
 </body>
 </html>

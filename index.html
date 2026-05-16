@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f7f7f7; padding: 16px; max-width: 390px; margin: 0 auto; }
+  .section { background: #fff; border-radius: 12px; padding: 20px 16px; }
+  .section-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+  .group { margin-bottom: 20px; }
+  .group:last-child { margin-bottom: 0; }
+  .group-label { font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #f5f5f5; border-radius: 20px; font-size: 13px; color: #333; }
+  .chip .icon { font-size: 15px; }
+  .chip.highlight { background: #e8f5e9; color: #2e7d32; }
+  .chip.highlight .icon { color: #2e7d32; }
+  .divider { height: 1px; background: #eee; margin: 20px 0; }
+  .note { font-size: 12px; color: #999; margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="section">
+  <div class="section-title">Amenities</div>
+
+  <div class="group">
+    <div class="group-label">In-unit</div>
+    <div class="chips">
+      <div class="chip highlight"><span class="icon">🧺</span> Washer</div>
+      <div class="chip highlight"><span class="icon">👕</span> Dryer</div>
+      <div class="chip"><span class="icon">🍳</span> Microwave</div>
+      <div class="chip"><span class="icon">🗄️</span> Pantry</div>
+      <div class="chip"><span class="icon">💨</span> Ceiling fan</div>
+      <div class="chip"><span class="icon">🪟</span> Window coverings</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="group">
+    <div class="group-label">Building</div>
+    <div class="chips">
+      <div class="chip highlight"><span class="icon">🏋️</span> Fitness center</div>
+      <div class="chip"><span class="icon">💼</span> Business center</div>
+      <div class="chip"><span class="icon">🛗</span> Elevator</div>
+      <div class="chip"><span class="icon">🚲</span> Bicycle storage</div>
+      <div class="chip"><span class="icon">🌳</span> Courtyard</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="group">
+    <div class="group-label">Parking</div>
+    <div class="chips">
+      <div class="chip"><span class="icon">🅿️</span> Available</div>
+    </div>
+  </div>
+
+  <div class="note">Highlighted amenities are commonly searched by renters in this area.</div>
+</div>
+</body>
+</html>

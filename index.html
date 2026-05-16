@@ -7,145 +7,124 @@
   body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f7f7f7; padding: 16px; max-width: 390px; margin: 0 auto; }
   .section { background: #fff; border-radius: 12px; padding: 20px 16px; }
   .section-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
-  .filters { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
-  .filters::-webkit-scrollbar { display: none; }
-  .filter-btn { flex-shrink: 0; padding: 7px 14px; border-radius: 20px; border: 1px solid #ddd; background: #fff; font-size: 13px; color: #555; cursor: pointer; }
-  .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
-  .group { margin-bottom: 20px; }
-  .group:last-child { margin-bottom: 0; }
-  .group.hidden { display: none; }
-  .group-label { font-size: 13px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-  .list { columns: 2; column-gap: 12px; }
-  .item { font-size: 14px; color: #333; padding: 4px 0; break-inside: avoid; }
+  .quickcheck { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .quickcheck-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; }
+  .quickcheck-item .status { width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+  .quickcheck-item .status.yes { background: #e8f5e9; color: #2e7d32; }
+  .quickcheck-item .status.no { background: #fce4ec; color: #c62828; }
   .divider { height: 1px; background: #eee; margin: 20px 0; }
-  .count { font-size: 12px; color: #999; margin-top: 16px; }
+  .group { margin-bottom: 0; }
+  .group-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; cursor: pointer; }
+  .group-label { font-size: 14px; font-weight: 600; color: #333; }
+  .group-preview { font-size: 12px; color: #999; margin-top: 2px; }
+  .arrow { font-size: 12px; color: #999; transition: transform 0.2s; }
+  .arrow.open { transform: rotate(180deg); }
+  .group-content { overflow: hidden; max-height: 0; transition: max-height 0.3s ease; }
+  .group-content.open { max-height: 600px; }
+  .list { columns: 2; column-gap: 12px; padding-top: 8px; padding-bottom: 4px; }
+  .item { font-size: 13px; color: #555; padding: 3px 0; break-inside: avoid; }
 </style>
 </head>
 <body>
 <div class="section">
   <div class="section-title">Amenities</div>
 
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="kitchen">Kitchen</button>
-    <button class="filter-btn" data-filter="laundry">Laundry</button>
-    <button class="filter-btn" data-filter="comfort">Comfort</button>
-    <button class="filter-btn" data-filter="fitness">Fitness</button>
-    <button class="filter-btn" data-filter="outdoor">Outdoor</button>
-    <button class="filter-btn" data-filter="parking">Parking</button>
+  <div class="quickcheck">
+    <div class="quickcheck-item"><span class="status yes">&#10003;</span> Washer/dryer</div>
+    <div class="quickcheck-item"><span class="status yes">&#10003;</span> Air conditioning</div>
+    <div class="quickcheck-item"><span class="status yes">&#10003;</span> Dishwasher</div>
+    <div class="quickcheck-item"><span class="status yes">&#10003;</span> Parking</div>
+    <div class="quickcheck-item"><span class="status yes">&#10003;</span> Pool</div>
+    <div class="quickcheck-item"><span class="status no">&#10005;</span> EV charging</div>
   </div>
 
-  <div class="group" data-group="in-unit">
-    <div class="group-label">In-unit</div>
-    <div class="list">
-      <div class="item" data-cat="comfort">Air conditioning</div>
-      <div class="item" data-cat="comfort">Ceiling fan</div>
-      <div class="item" data-cat="comfort">Crown molding</div>
-      <div class="item" data-cat="kitchen">Dishwasher</div>
-      <div class="item" data-cat="laundry">Dryer</div>
-      <div class="item" data-cat="kitchen">Garbage disposal</div>
-      <div class="item" data-cat="comfort">Garden tub</div>
-      <div class="item" data-cat="kitchen">Granite countertops</div>
-      <div class="item" data-cat="comfort">Hardwood floors</div>
-      <div class="item" data-cat="kitchen">Microwave</div>
-      <div class="item" data-cat="kitchen">Pantry</div>
-      <div class="item" data-cat="comfort">Patio/balcony</div>
-      <div class="item" data-cat="kitchen">Refrigerator</div>
-      <div class="item" data-cat="comfort">Smart home features</div>
-      <div class="item" data-cat="kitchen">Stove</div>
-      <div class="item" data-cat="comfort">USB outlets</div>
-      <div class="item" data-cat="comfort">View</div>
-      <div class="item" data-cat="comfort">Walk-in closet</div>
-      <div class="item" data-cat="comfort">Walk-in shower</div>
-      <div class="item" data-cat="laundry">Washer</div>
-      <div class="item" data-cat="comfort">Window coverings</div>
+  <div class="divider"></div>
+
+  <div class="group">
+    <div class="group-header" onclick="toggle('inunit')">
+      <div>
+        <div class="group-label">In-unit</div>
+        <div class="group-preview">21 amenities</div>
+      </div>
+      <span class="arrow open" id="arrow-inunit">&#9662;</span>
+    </div>
+    <div class="group-content open" id="inunit">
+      <div class="list">
+        <div class="item">Air conditioning</div>
+        <div class="item">Ceiling fan</div>
+        <div class="item">Crown molding</div>
+        <div class="item">Dishwasher</div>
+        <div class="item">Dryer</div>
+        <div class="item">Garbage disposal</div>
+        <div class="item">Garden tub</div>
+        <div class="item">Granite countertops</div>
+        <div class="item">Hardwood floors</div>
+        <div class="item">Microwave</div>
+        <div class="item">Pantry</div>
+        <div class="item">Patio/balcony</div>
+        <div class="item">Refrigerator</div>
+        <div class="item">Smart home</div>
+        <div class="item">Stove</div>
+        <div class="item">USB outlets</div>
+        <div class="item">View</div>
+        <div class="item">Walk-in closet</div>
+        <div class="item">Walk-in shower</div>
+        <div class="item">Washer</div>
+        <div class="item">Window coverings</div>
+      </div>
     </div>
   </div>
 
-  <div class="divider group-divider"></div>
+  <div class="divider"></div>
 
-  <div class="group" data-group="building">
-    <div class="group-label">Building</div>
-    <div class="list">
-      <div class="item" data-cat="comfort">Accessible units</div>
-      <div class="item" data-cat="outdoor">Bicycle storage</div>
-      <div class="item" data-cat="comfort">Business center</div>
-      <div class="item" data-cat="comfort">Coffee bar</div>
-      <div class="item" data-cat="comfort">Concierge</div>
-      <div class="item" data-cat="comfort">Controlled access</div>
-      <div class="item" data-cat="outdoor">Courtyard</div>
-      <div class="item" data-cat="outdoor">Dog park</div>
-      <div class="item" data-cat="comfort">Elevator</div>
-      <div class="item" data-cat="parking">EV charging</div>
-      <div class="item" data-cat="outdoor">Fire pit</div>
-      <div class="item" data-cat="fitness">Fitness center</div>
-      <div class="item" data-cat="comfort">Game room</div>
-      <div class="item" data-cat="outdoor">Hot tub</div>
-      <div class="item" data-cat="fitness">Lap pool</div>
-      <div class="item" data-cat="laundry">Laundry facility</div>
-      <div class="item" data-cat="comfort">Media room</div>
-      <div class="item" data-cat="outdoor">Outdoor grills</div>
-      <div class="item" data-cat="comfort">Package lockers</div>
-      <div class="item" data-cat="parking">Parking garage</div>
-      <div class="item" data-cat="outdoor">Pet spa</div>
-      <div class="item" data-cat="comfort">Playground</div>
-      <div class="item" data-cat="comfort">Security cameras</div>
-      <div class="item" data-cat="comfort">Storage units</div>
-      <div class="item" data-cat="outdoor">Swimming pool</div>
-      <div class="item" data-cat="comfort">Wi-Fi in common areas</div>
-      <div class="item" data-cat="fitness">Yoga studio</div>
+  <div class="group">
+    <div class="group-header" onclick="toggle('community')">
+      <div>
+        <div class="group-label">Community</div>
+        <div class="group-preview">27 amenities</div>
+      </div>
+      <span class="arrow" id="arrow-community">&#9662;</span>
+    </div>
+    <div class="group-content" id="community">
+      <div class="list">
+        <div class="item">Accessible units</div>
+        <div class="item">Bicycle storage</div>
+        <div class="item">Business center</div>
+        <div class="item">Coffee bar</div>
+        <div class="item">Concierge</div>
+        <div class="item">Controlled access</div>
+        <div class="item">Courtyard</div>
+        <div class="item">Dog park</div>
+        <div class="item">Elevator</div>
+        <div class="item">Fire pit</div>
+        <div class="item">Fitness center</div>
+        <div class="item">Game room</div>
+        <div class="item">Hot tub</div>
+        <div class="item">Lap pool</div>
+        <div class="item">Laundry facility</div>
+        <div class="item">Media room</div>
+        <div class="item">Outdoor grills</div>
+        <div class="item">Package lockers</div>
+        <div class="item">Parking garage</div>
+        <div class="item">Pet spa</div>
+        <div class="item">Playground</div>
+        <div class="item">Security cameras</div>
+        <div class="item">Storage units</div>
+        <div class="item">Swimming pool</div>
+        <div class="item">Wi-Fi common areas</div>
+        <div class="item">Yoga studio</div>
+      </div>
     </div>
   </div>
-
-  <div class="count" id="count">Showing 48 amenities</div>
 </div>
 
 <script>
-const filters = document.querySelectorAll('.filter-btn');
-const items = document.querySelectorAll('.item');
-const groups = document.querySelectorAll('.group');
-const dividers = document.querySelectorAll('.group-divider');
-const countEl = document.getElementById('count');
-
-filters.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filters.forEach(f => f.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.filter;
-
-    if (cat === 'all') {
-      items.forEach(c => c.style.display = '');
-      groups.forEach(g => g.classList.remove('hidden'));
-      dividers.forEach(d => d.style.display = '');
-      countEl.textContent = 'Showing 48 amenities';
-      return;
-    }
-
-    let visible = 0;
-    groups.forEach(group => {
-      const groupItems = group.querySelectorAll('.item');
-      let groupHasVisible = false;
-      groupItems.forEach(c => {
-        if (c.dataset.cat === cat) {
-          c.style.display = '';
-          groupHasVisible = true;
-          visible++;
-        } else {
-          c.style.display = 'none';
-        }
-      });
-      group.classList.toggle('hidden', !groupHasVisible);
-    });
-
-    dividers.forEach(d => {
-      const prev = d.previousElementSibling;
-      const next = d.nextElementSibling;
-      d.style.display = (prev && !prev.classList.contains('hidden') && next && !next.classList.contains('hidden')) ? '' : 'none';
-    });
-
-    countEl.textContent = 'Showing ' + visible + ' amenities';
-  });
-});
+function toggle(id) {
+  const content = document.getElementById(id);
+  const arrow = document.getElementById('arrow-' + id);
+  content.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
 </script>
 </body>
 </html>
